@@ -16,6 +16,44 @@ export default class HomeScreen extends React.Component {
     title: "Contact App"
   }
 
+  componentWillMount() {
+    const {navigation} = this.props;
+    navigation.addListener("willFocus", () => {
+      this.getAllContact();
+    })
+  }
+
+  getAllContact = async () => {
+    await AsyncStorage.getAllKeys()
+      .then( keys => {
+        //console.log(keys)
+        return AsyncStorage.multiGet(keys)
+          .then( result => {
+            this.setState({
+              data: result.sort(function(a, b) {
+                if (JSON.parse(a[1]).firstName < JSON.parse(b[1]).firstName) {
+                  return -1;
+                }
+                if (JSON.parse(a[1]).firstName > JSON.parse(b[1]).firstName) {
+                  return 1;
+                }
+                return 0;
+              })
+            });
+          })
+          .catch(error => {
+            console.log(error)
+          });
+      })
+      .catch( () => {
+        console.log(error);  
+      });
+
+      console.log(this.state.data)
+      
+  }
+
+
 
   render() {
     return (
@@ -23,7 +61,7 @@ export default class HomeScreen extends React.Component {
         <TouchableOpacity
         style={styles.floatButton}
           onPress={ () => {
-            navigation=this.props.navigation.navigate("Add");
+            this.props.navigation.navigate("Add");
           } }
         >
           <Entypo

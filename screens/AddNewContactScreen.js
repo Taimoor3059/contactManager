@@ -122,9 +122,10 @@ export default class AddNewContactScreen extends React.Component {
           onPress = { () => {
             this.saveContact();
           } }
-        />
-
-
+        >
+          <Text style={styles.buttonText}>Save</Text>
+        </Button>
+        <View style={styles.empty}></View>
       </ScrollView>
 
       </TouchableWithoutFeedback>
