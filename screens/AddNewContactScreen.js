@@ -59,16 +59,72 @@ export default class AddNewContactScreen extends React.Component {
       >
       <ScrollView style={styles.container}>
         <Form>
+
           <Item style={styles.inputItem}>
-            <label>First Name</label>
-            <input 
+            <Label>First Name</Label>
+            <Input 
             autoCorrect={false}
             autoCapitalize="none"
-            KeyboardType="decimal-pad"
+            KeyboardType="default"
+            placeholder="please write your first name here"
             onChangeText={ firstName => this.setState({firstName}) }
             />
           </Item>
+
+          <Item style={styles.inputItem}>
+            <Label>Last Name</Label>
+            <Input 
+            autoCorrect={false}
+            autoCapitalize="none"
+            KeyboardType="default"
+            placeholder="please write your Last name here"
+            onChangeText={ lastName => this.setState({lastName}) }
+            />
+          </Item>
+
+          <Item style={styles.inputItem}>
+            <Label>Phone Number</Label>
+            <Input 
+            autoCorrect={false}
+            autoCapitalize="none"
+            KeyboardType="number-pad"
+            placeholder="please write your Phone Number here"
+            onChangeText={ phoneNumber => this.setState({phoneNumber}) }
+            />
+          </Item>
+
+          <Item style={styles.inputItem}>
+            <Label>Email</Label>
+            <Input 
+            autoCorrect={false}
+            autoCapitalize="none"
+            KeyboardType="email-address"
+            placeholder="please write your Email Address here"
+            onChangeText={ email => this.setState({email}) }
+            />
+          </Item>
+
+          <Item style={styles.inputItem}>
+            <Label>Address</Label>
+            <Input 
+            autoCorrect={false}
+            autoCapitalize="none"
+            KeyboardType="default"
+            placeholder="please write your Home Address here"
+            onChangeText={ address => this.setState({address}) }
+            />
+          </Item>
+
         </Form>
+        <Button
+          style={styles.button}
+          full
+          onPress = { () => {
+            this.saveContact();
+          } }
+        />
+
+
       </ScrollView>
 
       </TouchableWithoutFeedback>

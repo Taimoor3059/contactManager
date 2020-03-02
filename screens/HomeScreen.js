@@ -15,13 +15,15 @@ export default class HomeScreen extends React.Component {
   static navigationOptions = {
     title: "Contact App"
   }
+
+
   render() {
     return (
       <View style={styles.container}>
         <TouchableOpacity
         style={styles.floatButton}
           onPress={ () => {
-            this.props.navigations.navigate("Add");
+            navigation=this.props.navigation.navigate("Add");
           } }
         >
           <Entypo
