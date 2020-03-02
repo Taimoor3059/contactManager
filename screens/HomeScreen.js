@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, FlatList, AsyncStorage } from 'react-native';
-//import { Card } from "native-base";
+import { Card } from "native-base";
 import { Entypo } from '@expo/vector-icons';
 
 
