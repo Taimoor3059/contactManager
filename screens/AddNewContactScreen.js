@@ -65,7 +65,7 @@ export default class AddNewContactScreen extends React.Component {
             <Input 
             autoCorrect={false}
             autoCapitalize="none"
-            KeyboardType="default"
+            keyboardtype="default"
             placeholder="please write your first name here"
             onChangeText={ firstName => this.setState({firstName}) }
             />
@@ -76,7 +76,7 @@ export default class AddNewContactScreen extends React.Component {
             <Input 
             autoCorrect={false}
             autoCapitalize="none"
-            KeyboardType="default"
+            keyboardtype="default"
             placeholder="please write your Last name here"
             onChangeText={ lastName => this.setState({lastName}) }
             />
@@ -87,7 +87,7 @@ export default class AddNewContactScreen extends React.Component {
             <Input 
             autoCorrect={false}
             autoCapitalize="none"
-            KeyboardType="number-pad"
+            keyboardtype="number-pad"
             placeholder="please write your Phone Number here"
             onChangeText={ phoneNumber => this.setState({phoneNumber}) }
             />
@@ -98,7 +98,7 @@ export default class AddNewContactScreen extends React.Component {
             <Input 
             autoCorrect={false}
             autoCapitalize="none"
-            KeyboardType="email-address"
+            keyboardtype="email-address"
             placeholder="please write your Email Address here"
             onChangeText={ email => this.setState({email}) }
             />
@@ -109,7 +109,7 @@ export default class AddNewContactScreen extends React.Component {
             <Input 
             autoCorrect={false}
             autoCapitalize="none"
-            KeyboardType="default"
+            keyboardtype="default"
             placeholder="please write your Home Address here"
             onChangeText={ address => this.setState({address}) }
             />
@@ -133,6 +133,7 @@ export default class AddNewContactScreen extends React.Component {
   }
   
 }
+
 
 const styles = StyleSheet.create({
   container: {

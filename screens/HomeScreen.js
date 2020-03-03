@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, FlatList, AsyncStorage } from 'react-native';
-import { Card } from "native-base";
+import { Card, Item } from "native-base";
 import { Entypo } from '@expo/vector-icons';
 
 
@@ -16,7 +16,7 @@ export default class HomeScreen extends React.Component {
     title: "Contact App"
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const {navigation} = this.props;
     navigation.addListener("willFocus", () => {
       this.getAllContact();
@@ -58,6 +58,35 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <FlatList
+          data={this.state.data}
+          renderItem= { ({item}) => {
+            contact = JSON.parse(item[1]);
+              return (
+                <TouchableOpacity>
+                  <Card style={styles.listItem}>
+                    <View style={styles.iconContainer}>
+                      <Text style={styles.contactIcon}>
+                        {contact.firstName[0].toUpperCase()}
+                      </Text>
+                    </View>
+                    <View style={styles.infoContainer}>
+                      <Text style={styles.infoText}>
+                        {contact.firstName} {contact.lastName}
+                      </Text>
+                      <Text style={styles.infoText}>
+                        {contact.phoneNumber}
+                      </Text>
+                    </View>
+                  </Card>
+                </TouchableOpacity>
+              )
+          }}
+          keyExtractor={ (Item, index) => item[0].toString() } 
+        />
+
+
+
         <TouchableOpacity
         style={styles.floatButton}
           onPress={ () => {
