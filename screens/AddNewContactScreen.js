@@ -14,9 +14,6 @@ export default class AddNewContactScreen extends React.Component {
     }
   }
 
-  static navigationOptions = {
-    title: "Contact App"
-  }
 
   saveContact = async () => {
     if (
@@ -38,16 +35,16 @@ export default class AddNewContactScreen extends React.Component {
        JSON.stringify(contact)
        )
        .then( () => {
-         this.props.navigation.goBack();
+         this.props.navigation.navigate("Home");
+        // console.log(contact.lastName, contact.email)  //or navigation.goBack();
        })
        .catch( error => {
-         console.log(error)
+         console.log("save error",error)
        })
     } else {
       Alert.alert("All fields are required!")
     }
   }
-
 
   render() {
     return (
@@ -121,10 +118,12 @@ export default class AddNewContactScreen extends React.Component {
           full
           onPress = { () => {
             this.saveContact();
+            //console.log(this.state.firstName)
           } }
         >
           <Text style={styles.buttonText}>Save</Text>
         </Button>
+        
         <View style={styles.empty}></View>
       </ScrollView>
 
@@ -133,8 +132,6 @@ export default class AddNewContactScreen extends React.Component {
   }
   
 }
-
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

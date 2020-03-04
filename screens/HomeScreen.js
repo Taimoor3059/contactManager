@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, FlatList, AsyncStorage } from 'react-native';
-import { Card, Item } from "native-base";
+import { Card } from "native-base";
 import { Entypo } from '@expo/vector-icons';
 
 
@@ -12,48 +12,36 @@ export default class HomeScreen extends React.Component {
     }
   }
 
-  static navigationOptions = {
-    title: "Contact App"
-  }
 
-  UNSAFE_componentWillMount() {
+  componentWillMount() {  
     const {navigation} = this.props;
-    navigation.addListener("willFocus", () => {
+    //console.log(contact);
+    navigation.addListener("focus", () => {
       this.getAllContact();
     })
   }
+  
 
   getAllContact = async () => {
     await AsyncStorage.getAllKeys()
-      .then( keys => {
-        //console.log(keys)
+      .then( async keys => {
+        console.log(keys);
         return AsyncStorage.multiGet(keys)
-          .then( result => {
-            this.setState({
-              data: result.sort(function(a, b) {
-                if (JSON.parse(a[1]).firstName < JSON.parse(b[1]).firstName) {
-                  return -1;
-                }
-                if (JSON.parse(a[1]).firstName > JSON.parse(b[1]).firstName) {
-                  return 1;
-                }
-                return 0;
-              })
-            });
+          .then(result => {
+            this.setState = {
+              data: result
+            }
+            //console.log(this.state.data.result.firstName);
           })
           .catch(error => {
-            console.log(error)
-          });
+            console.log('multiget block', error)
+          })
       })
-      .catch( () => {
-        console.log(error);  
+      .catch(error => {
+        console.log("load keys error", error)
       });
-
-      console.log(this.state.data)
-      
-  }
-
-
+  };
+        
 
   render() {
     return (
@@ -82,20 +70,17 @@ export default class HomeScreen extends React.Component {
                 </TouchableOpacity>
               )
           }}
-          keyExtractor={ (Item, index) => item[0].toString() } 
+          keyExtractor={ (item, index) => item[0].toString() } 
         />
-
-
-
         <TouchableOpacity
-        style={styles.floatButton}
+          style={styles.floatButton}
           onPress={ () => {
             this.props.navigation.navigate("Add");
           } }
         >
           <Entypo
             name="plus"
-            size={32}
+            size={30}
             color="#fff" 
           />
         </TouchableOpacity>
@@ -103,6 +88,8 @@ export default class HomeScreen extends React.Component {
     );
   }
 }
+
+
 
 const styles = StyleSheet.create({
   container: {

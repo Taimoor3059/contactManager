@@ -9,7 +9,9 @@ import EditContactScreen from './screens/EditContactScreen';
 import ViewContactScreen from './screens/ViewContactScreen';
 
 
+
 const Stack = createStackNavigator();
+
 
 function App() {
   return (
@@ -24,11 +26,12 @@ function App() {
             color: "#fff"
           }
         }}
+        
       >
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Add" component={AddNewContactScreen} />
+        <Stack.Screen name="Home" component={HomeScreen} options={{title: "Contact App"}} />
+        <Stack.Screen name="Add" component={AddNewContactScreen} options={{title: "Contact App"}}  />
         <Stack.Screen name="Edit" component={EditContactScreen} />
-        <Stack.Screen name="View" component={ViewContactScreen} />
+        <Stack.Screen name="View" component={ViewContactScreen}  />
       </Stack.Navigator>
     </NavigationContainer>
   );
