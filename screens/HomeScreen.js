@@ -15,7 +15,6 @@ export default class HomeScreen extends React.Component {
 
   componentWillMount() {  
     const {navigation} = this.props;
-    //console.log(contact);
     navigation.addListener("focus", () => {
       this.getAllContact();
     })
@@ -24,54 +23,59 @@ export default class HomeScreen extends React.Component {
 
   getAllContact = async () => {
     await AsyncStorage.getAllKeys()
-      .then( async keys => {
-        console.log(keys);
+      .then(keys => { 
         return AsyncStorage.multiGet(keys)
+        
           .then(result => {
-            this.setState = {
+            this.setState({
               data: result
-            }
-            //console.log(this.state.data.result.firstName);
+            })
           })
           .catch(error => {
-            console.log('multiget block', error)
+            console.log("Multiget error", error)
           })
       })
       .catch(error => {
-        console.log("load keys error", error)
-      });
-  };
+        console.log('getAllKeys Error', error)
+      })
+
+      console.log(this.state.data);
+  }
         
 
   render() {
     return (
       <View style={styles.container}>
+
         <FlatList
           data={this.state.data}
-          renderItem= { ({item}) => {
-            contact = JSON.parse(item[1]);
+          renderItem={({ item }) => {
+            const contact = JSON.parse(item[1])
               return (
                 <TouchableOpacity>
                   <Card style={styles.listItem}>
+
                     <View style={styles.iconContainer}>
                       <Text style={styles.contactIcon}>
-                        {contact.firstName[0].toUpperCase()}
+                      {}
                       </Text>
                     </View>
+
                     <View style={styles.infoContainer}>
                       <Text style={styles.infoText}>
-                        {contact.firstName} {contact.lastName}
+                        {item[1]}
                       </Text>
-                      <Text style={styles.infoText}>
-                        {contact.phoneNumber}
-                      </Text>
+                      <Text></Text>
                     </View>
+
                   </Card>
                 </TouchableOpacity>
               )
           }}
-          keyExtractor={ (item, index) => item[0].toString() } 
+          keyExtractor={ (item, index) => item[0].toString() }
+
         />
+        
         <TouchableOpacity
           style={styles.floatButton}
           onPress={ () => {
