@@ -37,9 +37,7 @@ export default class HomeScreen extends React.Component {
       })
       .catch(error => {
         console.log('getAllKeys Error', error)
-      })
-
-      console.log(this.state.data);
+      })    
   }
         
 
@@ -52,20 +50,28 @@ export default class HomeScreen extends React.Component {
           renderItem={({ item }) => {
             const contact = JSON.parse(item[1])
               return (
-                <TouchableOpacity>
+                <TouchableOpacity
+                  onPress = { () => {
+                    this.props.navigation.navigate("View", {
+                      key: item[0].toString()
+                    })
+                  } }
+                >
                   <Card style={styles.listItem}>
 
                     <View style={styles.iconContainer}>
                       <Text style={styles.contactIcon}>
-                      {}
+                        {contact.firstName[0].toUpperCase()}
                       </Text>
                     </View>
 
                     <View style={styles.infoContainer}>
                       <Text style={styles.infoText}>
-                        {item[1]}
+                        {contact.firstName} {contact.lastName}
                       </Text>
-                      <Text></Text>
+                      <Text>
+                            {contact.phoneNumber}
+                      </Text>
                     </View>
 
                   </Card>
