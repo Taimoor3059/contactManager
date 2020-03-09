@@ -16,16 +16,13 @@ export default class ViewContactScreen extends React.Component {
     }
   }
 
-  static navigationOptions = {
-    title: "View Contact"
-  };
-
   componentDidMount() {
     const { navigation } = this.props;
     navigation.addListener("willFocus", () => {
       var key = this.props.navigation.getParam("key", "");
       this.getContact(key);
     })
+    console.log("hello")
   }
 
   callAction = phone => {
@@ -50,14 +47,15 @@ export default class ViewContactScreen extends React.Component {
 
   getContact = async key => {
     await AsyncStorage.getItem(key)
-      .then(contactjsonString => {
-        var contact = JSON.parse(contactjsonString);
+      .then(value => {
+        var contact = JSON.parse(value);
         contact[key] = key;
-        this.setState({contact: contact})
+        this.setState({contact})
       })
       .catch(error => {
         console.log(error)
       })
+      
   }
 
   smsAction = (phone) => {
@@ -88,26 +86,52 @@ export default class ViewContactScreen extends React.Component {
           <Text style={styles.contactIcon}>
             {this.state.firstName[0].toUpperCase()}
           </Text>
-        </View>
-
-        <View style={styles.nameContainer}>
+          <View style={styles.nameContainer}>
           <Text style={styles.name}>
             {this.state.firstName} {this.state.lastName}
           </Text>
         </View>
+        </View>
 
-        <View>
+        
+
+        <View style={styles.infoContainer}>
           <Card>
 
             <CardItem bordered>
-              <Text>Phone</Text>
+              <Text style={styles.infoText}>Phone</Text>
             </CardItem>
 
             <CardItem bordered>
-              <Text>{this.state.phone}</Text>
+              <Text style={styles.infoText}>{this.state.phone}</Text>
             </CardItem>
-            
+
           </Card>
+
+          <Card>
+
+            <CardItem bordered>
+              <Text style={styles.infoText}>Email</Text>
+            </CardItem>
+
+            <CardItem bordered>
+              <Text style={styles.infoText}>{this.state.email}</Text>
+            </CardItem>
+
+          </Card>
+
+          <Card>
+
+            <CardItem bordered>
+              <Text style={styles.infoText}>Address</Text>
+            </CardItem>
+
+            <CardItem bordered>
+              <Text style={styles.infoText}>{this.state.address}</Text>
+            </CardItem>
+
+          </Card>
+
         </View>
 
 
@@ -164,5 +188,8 @@ const styles = StyleSheet.create({
   actionText: {
     color: "#B83227",
     fontWeight: "900"
+  },
+  infoContainer: {
+    flexDirection: "column"
   }
 });

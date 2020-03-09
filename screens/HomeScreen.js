@@ -28,7 +28,6 @@ export default class HomeScreen extends React.Component {
     await AsyncStorage.getAllKeys()
       .then(keys => { 
         return AsyncStorage.multiGet(keys)
-        
           .then(result => {
             this.setState({
               data: result
@@ -40,25 +39,27 @@ export default class HomeScreen extends React.Component {
       })
       .catch(error => {
         console.log('getAllKeys Error', error)
-      })    
-  }
+      })
         
+  };
 
   render() {
     return (
       <View style={styles.container}>
-
         <FlatList
           data={this.state.data}
-          renderItem={({ item }) => {
+          renderItem={( {item} ) => {
             const contact = JSON.parse(item[1])
+            console.log(contact)
               return (
                 <TouchableOpacity
                   onPress = { () => {
                     this.props.navigation.navigate("View", {
                       key: item[0].toString()
                     })
+                  
                   } }
+                  
                 >
                   <Card style={styles.listItem}>
 
