@@ -31,7 +31,7 @@ function App() {
         <Stack.Screen name="Home" component={HomeScreen} options={{title: "Contact App"}} />
         <Stack.Screen name="Add" component={AddNewContactScreen} options={{title: "Contact App"}}  />
         <Stack.Screen name="Edit" component={EditContactScreen} />
-        <Stack.Screen name="View" component={ViewContactScreen}  />
+        <Stack.Screen name="View" component={ViewContactScreen} options={{title: "View Contact"}} />
       </Stack.Navigator>
     </NavigationContainer>
   );

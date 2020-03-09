@@ -11,6 +11,9 @@ export default class HomeScreen extends React.Component {
       data: []
     }
   }
+  static navigationOptions = {
+    title: "Contact App"
+  };
 
 
   componentWillMount() {  
@@ -70,7 +73,7 @@ export default class HomeScreen extends React.Component {
                         {contact.firstName} {contact.lastName}
                       </Text>
                       <Text>
-                            {contact.phoneNumber}
+                        {contact.phoneNumber}
                       </Text>
                     </View>
 
