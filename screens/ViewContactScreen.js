@@ -33,12 +33,12 @@ export default class ViewContactScreen extends React.Component {
     } else {
       phoneNumber = `tel:${phone}`;
     }
-    Linking.canOpenURL(phone)
+    Linking.canOpenURL(phoneNumber)
       .then( supported => {
         if (!supported) {
           Alert.alert("phone number is not available")
         } else {
-          return Linking.openURL(phone)
+          return Linking.openURL(phoneNumber)
         }
       } )
       .catch(error => {
@@ -64,12 +64,12 @@ export default class ViewContactScreen extends React.Component {
   smsAction = (phone) => {
     let phoneNumber = phone;
     phoneNumber = `sms: ${phone}` 
-    Linking.canOpenURL(phone)
+    Linking.canOpenURL(phoneNumber)
       .then( supported => {
         if (!supported) {
           Alert.alert("phone number is not available")
         } else {
-          return Linking.openURL(phone)
+          return Linking.openURL(phoneNumber);
         }
       } )
       .catch(error => {
@@ -137,7 +137,78 @@ export default class ViewContactScreen extends React.Component {
 
         </View>
 
+        <Card style={styles.actionContainer}>
+          <CardItem style={styles.actionButton} bordered>
+            <TouchableOpacity
+            onPress ={ () => {
+              this.callAction(this.state.phoneNumber)
+            }} 
+            >
+              <Entypo
+              name="phone"
+              size={50}
+              color="#B83227"
+              />
+            </TouchableOpacity>
+            <Text style={styles.actionText}>Call</Text>
+          </CardItem>
 
+          <CardItem style={styles.actionButton} bordered>
+            <TouchableOpacity
+            onPress ={ () => {
+              this.smsAction(this.state.phoneNumber)
+            }} 
+            >
+              <Entypo
+              name="message"
+              size={50}
+              color="#B83227"
+              />
+            </TouchableOpacity>
+            <Text style={styles.actionText}>Message</Text>
+          </CardItem>
+
+
+          
+        </Card>
+
+
+        <Card style={styles.actionContainer}>
+          <CardItem style={styles.actionButton} bordered>
+            <TouchableOpacity
+            onPress ={ () => {
+              this.deleteContact(this.state.key)
+            }} 
+            >
+              <Entypo
+              name="trash"
+              size={50}
+              color="#B83227"
+              />
+              <Text style={styles.actionText}>Delete</Text>
+            </TouchableOpacity>
+          </CardItem>
+
+          <CardItem style={styles.actionButton} bordered>
+            <TouchableOpacity
+            onPress ={ () => {
+              this.editContact(this.state.key)
+            }} 
+            >
+              <Entypo
+              name="edit"
+              size={50}
+              color="#B83227"
+              />
+              <Text style={styles.actionText}>Edit</Text>
+            </TouchableOpacity>
+          </CardItem>
+
+
+          
+        </Card>
+
+        
 
 
       </ScrollView>
