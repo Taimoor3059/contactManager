@@ -17,12 +17,13 @@ export default class ViewContactScreen extends React.Component {
   }
 
   componentDidMount() {
-    const { navigation } = this.props;
-    navigation.addListener("willFocus", () => {
-      var key = this.props.navigation.getParam("key", "");
-      this.getContact(key);
-    })
-    console.log("hello")
+    const {navigation} = this.props;
+    navigation.addListener("focus", () => {
+      console.log('entered navigation.listener');
+      let keys = this.props.route.params.key;
+      //console.log(keys)
+      this.getContact(keys);
+    })  
   }
 
   callAction = phone => {
@@ -45,19 +46,21 @@ export default class ViewContactScreen extends React.Component {
       })
   };
 
-  getContact = async key => {
-    await AsyncStorage.getItem(key)
-      .then(value => {
-        var contact = JSON.parse(value);
-        contact[key] = key;
-        this.setState({contact})
+  getContact = async keys => {
+    //console.log('helloItem');
+    await AsyncStorage.getItem(keys)
+      .then(contactjsonString => {
+        var contact = JSON.parse(contactjsonString)
+        contact[keys] = keys;
+        this.setState(contact)
+        console.log('new')
+        console.log(this.state.contact)
       })
       .catch(error => {
         console.log(error)
-      })
-      
+      })  
   }
-
+  
   smsAction = (phone) => {
     let phoneNumber = phone;
     phoneNumber = `sms: ${phone}` 
@@ -103,7 +106,7 @@ export default class ViewContactScreen extends React.Component {
             </CardItem>
 
             <CardItem bordered>
-              <Text style={styles.infoText}>{this.state.phone}</Text>
+              <Text style={styles.infoText}>{this.state.phoneNumber}</Text>
             </CardItem>
 
           </Card>

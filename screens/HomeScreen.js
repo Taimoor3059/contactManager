@@ -50,7 +50,7 @@ export default class HomeScreen extends React.Component {
           data={this.state.data}
           renderItem={( {item} ) => {
             const contact = JSON.parse(item[1])
-            console.log(contact)
+            
               return (
                 <TouchableOpacity
                   onPress = { () => {
@@ -61,6 +61,7 @@ export default class HomeScreen extends React.Component {
                   } }
                   
                 >
+                  
                   <Card style={styles.listItem}>
 
                     <View style={styles.iconContainer}>
@@ -83,7 +84,6 @@ export default class HomeScreen extends React.Component {
               )
           }}
           keyExtractor={ (item, index) => item[0].toString() }
-
         />
         
         <TouchableOpacity
