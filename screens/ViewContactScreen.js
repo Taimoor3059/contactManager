@@ -20,9 +20,9 @@ export default class ViewContactScreen extends React.Component {
     const {navigation} = this.props;
     navigation.addListener("focus", () => {
       console.log('entered navigation.listener');
-      let keys = this.props.route.params.key;
+      var key = this.props.route.params.key;
       //console.log(keys)
-      this.getContact(keys);
+      this.getContact(key);
     })  
   }
 
@@ -46,15 +46,15 @@ export default class ViewContactScreen extends React.Component {
       })
   };
 
-  getContact = async keys => {
+  getContact = async key => {
     //console.log('helloItem');
-    await AsyncStorage.getItem(keys)
+    await AsyncStorage.getItem(key)
       .then(contactjsonString => {
         var contact = JSON.parse(contactjsonString)
-        contact[keys] = keys;
+        contact["key"] = key;
         this.setState(contact)
         console.log('new')
-        console.log(this.state.contact)
+        console.log(this.state.key)
       })
       .catch(error => {
         console.log(error)
@@ -80,6 +80,31 @@ export default class ViewContactScreen extends React.Component {
   editContact = (key) => {
     this.props.navigation.navigate("Edit", {key:key});
   };
+
+  deleteContact = key => {
+    Alert.alert(
+      "Delete Contact?",
+      `${this.state.firstName} ${this.state.lastName}`,
+      [
+        {
+          text: "Cancel", onPress: () => console.log("cancel tapped")
+        },
+        {
+          text: "OK",
+          onPress : async () => {
+            await AsyncStorage.removeItem(key)
+            .then( () => {
+              this.props.navigation.goBack();
+            } )
+            .catch(error => {
+              console.log(error)
+            })
+            
+          }
+        }
+      ]
+    )
+  }
   
   render() {
     return (
